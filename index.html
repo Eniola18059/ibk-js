@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Unit 1: JavaScript Fundamentals — The Complete Beginner's Textbook</title>
+<style>
+:root{--bg:#fdfcf9;--text:#1f2328;--sub:#5a5f66;--card:#fff;--border:#e5e2da;--accent:#8a5cf6;--code-bg:#f4f2ee;--code-text:#3b2f6b;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#181a1f;--text:#e9e8e6;--sub:#a1a6ad;--card:#20232a;--border:#2d313a;--accent:#b79bff;--code-bg:#262a33;--code-text:#d8c9ff;}}
+:root[data-theme="dark"]{--bg:#181a1f;--text:#e9e8e6;--sub:#a1a6ad;--card:#20232a;--border:#2d313a;--accent:#b79bff;--code-bg:#262a33;--code-text:#d8c9ff;}
+html{scroll-padding-top:env(safe-area-inset-top,0px);}
+*{box-sizing:border-box;}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Georgia,'Times New Roman',serif;line-height:1.7;font-size:17px;}
+.wrap{max-width:760px;margin:0 auto;padding:2rem 1.25rem 5rem;}
+header.top{text-align:center;margin-bottom:2rem;}
+header.top h1{font-size:1.8rem;margin-bottom:.25rem;}
+header.top p{color:var(--sub);font-family:Arial,sans-serif;font-size:.95rem;}
+nav.toc{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1rem 1.25rem;margin-bottom:2.5rem;font-family:Arial,sans-serif;font-size:.9rem;}
+nav.toc h2{font-size:.8rem;text-transform:uppercase;letter-spacing:.05em;color:var(--sub);margin:0 0 .5rem;}
+nav.toc ol{margin:0;padding-left:1.1rem;}
+nav.toc li{margin-bottom:.3rem;}
+nav.toc a{color:var(--accent);text-decoration:none;}
+section{margin-bottom:3rem;padding-bottom:2.2rem;border-bottom:1px solid var(--border);}
+section:last-of-type{border-bottom:none;}
+h2{font-size:1.45rem;margin-bottom:.2rem;}
+h2 .num{color:var(--accent);font-family:Arial,sans-serif;}
+h3{font-size:1.1rem;margin-top:1.7rem;}
+h4{font-size:.98rem;margin-top:1.2rem;color:var(--sub);font-family:Arial,sans-serif;text-transform:uppercase;letter-spacing:.03em;}
+p{margin:0 0 1rem;}
+.callout{background:var(--card);border-left:4px solid var(--accent);border-radius:6px;padding:.9rem 1.1rem;margin:1.1rem 0;font-family:Arial,sans-serif;font-size:.92rem;}
+.callout b{color:var(--accent);}
+.trap{border-left-color:#e0685a;}
+.trap b{color:#e0685a;}
+.plain{border-left-color:#3fa06e;}
+.plain b{color:#3fa06e;}
+pre{background:var(--code-bg);color:var(--code-text);padding:1rem 1.1rem;border-radius:8px;overflow-x:auto;font-family:'SFMono-Regular',Consolas,Menlo,monospace;font-size:.87rem;line-height:1.5;margin:1rem 0;max-width:100%;}
+code{font-family:'SFMono-Regular',Consolas,Menlo,monospace;background:var(--code-bg);color:var(--code-text);padding:.1rem .35rem;border-radius:4px;font-size:.88em;}
+pre code{background:none;padding:0;}
+.exercise{background:var(--card);border:1px dashed var(--accent);border-radius:8px;padding:1rem 1.1rem;margin-top:1.3rem;font-family:Arial,sans-serif;font-size:.92rem;}
+.exercise b{display:block;margin-bottom:.4rem;}
+.check{background:var(--card);border-radius:8px;padding:.8rem 1.1rem;margin-top:1rem;font-family:Arial,sans-serif;font-size:.88rem;color:var(--sub);}
+footer{text-align:center;color:var(--sub);font-family:Arial,sans-serif;font-size:.85rem;margin-top:3rem;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="top">
+  <h1>Unit 1: JavaScript Fundamentals</h1>
+  <p>The complete beginner's version — nothing assumed, nothing skipped, every idea explained twice.</p>
+</header>
+
+<nav class="toc">
+  <h2>Contents</h2>
+  <ol>
+    <li><a href="#intro">What a computer actually does with your code</a></li>
+    <li><a href="#variables">Variables — boxes with names</a></li>
+    <li><a href="#scope">Scope — who can see which box</a></li>
+    <li><a href="#types">Data types — the kinds of things you can store</a></li>
+    <li><a href="#operators">Operators and coercion</a></li>
+    <li><a href="#control">Control flow — decisions and repetition</a></li>
+    <li><a href="#next">Recap and what's next</a></li>
+  </ol>
+</nav>
+
+<section id="intro">
+  <h2><span class="num">1.</span> What a computer actually does with your code</h2>
+  <p>Let's start further back than most tutorials do. A computer, at its core, is an extremely fast, extremely obedient, but extremely literal-minded machine. It cannot "understand" ideas the way you do. All it can really do is move numbers around in memory and follow yes/no comparisons. Everything you'll ever write in JavaScript — no matter how advanced it looks later — eventually gets broken down into that kind of simple, mechanical instruction.</p>
+  <p>So when you type JavaScript code into a file and run it, something has to translate your human-readable words (<code>let</code>, <code>if</code>, <code>function</code>) into those low-level instructions. That translator is called a <b>JavaScript engine</b>. Every browser has one built in — Chrome and Node.js both use an engine called <b>V8</b>, Firefox uses one called <b>SpiderMonkey</b>, and Safari uses <b>JavaScriptCore</b>. You don't need to know how these work internally. You just need to know that something is reading your code, top to bottom, one instruction at a time, and carrying it out.</p>
+  <h4>In Plain English</h4>
+  <div class="callout plain"><b>Think of it like a recipe:</b> you (the programmer) write a recipe in a language a chef (the engine) can read. The chef doesn't improvise or guess your intentions — it follows the recipe exactly as written, one step at a time, in order. If you write the steps in the wrong order, or leave one out, the dish comes out wrong. This is why precision matters so much in programming, and why we spend so much time being exact about spelling, punctuation, and order.</div>
+  <p>Now, what does the engine actually store while it works? <b>Memory.</b> Imagine your computer's memory as an enormous wall of small storage lockers, each one able to hold a single value. When your program needs to remember something — a name, a number, a list — the engine finds a free locker, puts the value inside, and gives that locker a label so your code can find it again later. That labeled locker is what we call a <b>variable</b>, and it's the very first real concept we'll dig into.</p>
+  <div class="check"><b>Quick self-check before moving on:</b> Can you explain, in your own words, what a "JavaScript engine" does? If you can say "it reads my code and carries out the instructions in order," you're ready for Section 2.</div>
+</section>
+
+<section id="variables">
+  <h2><span class="num">2.</span> Variables — boxes with names</h2>
+  <p>A variable is simply a name you give to a value so that you (and your code) can refer to it later without retyping it. Instead of writing the number <code>25</code> everywhere in your program, you write it once, give it a name like <code>age</code>, and then use <code>age</code> everywhere you need that value.</p>
+  <pre><code>let name = "Eniola";
+console.log(name); // prints: Eniola</code></pre>
+  <p>Let's slow down and read that line by line, because every single word matters:</p>
+  <ul>
+    <li><code>let</code> — a keyword telling JavaScript "I am about to create a new variable."</li>
+    <li><code>name</code> — the label we're choosing for this variable. We could have called it anything (<code>myName</code>, <code>x</code>, <code>userFirstName</code>) — the word <code>name</code> has no special meaning to JavaScript, it's just a label we chose because it's descriptive.</li>
+    <li><code>=</code> — the <b>assignment operator</b>. This does NOT mean "equals" the way it does in math. It means "take the thing on the right, and store it in the box on the left."</li>
+    <li><code>"Eniola"</code> — the actual value being stored. The quotation marks tell JavaScript "this is text, not code to run."</li>
+    <li><code>;</code> — a semicolon, marking the end of the instruction. Think of it as a full stop at the end of a sentence.</li>
+  </ul>
+  <p>The second line, <code>console.log(name)</code>, is a way of asking JavaScript to print a value so a human can see it. <code>console</code> refers to your browser's or Node's built-in debugging console; <code>.log(...)</code> is an instruction meaning "write whatever's inside these parentheses out for me to read." You will use <code>console.log</code> constantly — it's your window into what your program is actually doing.</p>
+
+  <h3>The three ways to create a variable</h3>
+  <p>JavaScript actually gives you three different keywords for creating a variable box: <code>var</code>, <code>let</code>, and <code>const</code>. Beginners often ask "why three?" — the honest answer is historical: <code>var</code> is the original, from JavaScript's creation in 1995. As the language matured, developers realized <code>var</code> had confusing rules (you'll see exactly why in Section 3), so in 2015 JavaScript introduced <code>let</code> and <code>const</code> as safer replacements. Today, well-written JavaScript almost never uses <code>var</code>.</p>
+
+  <h4>const — the "locked" box</h4>
+  <p><code>const</code> is short for "constant," meaning a value that does not change. Once you store a value with <code>const</code>, you cannot put a different value in that same box later.</p>
+  <pre><code>const pi = 3.14159;
+pi = 4; // ❌ TypeError: Assignment to constant variable.</code></pre>
+  <p>Notice the engine doesn't just ignore your mistake — it stops your entire program and shows you an error. This is actually a helpful safety feature: if you know a value should never change (like <code>pi</code>, or a person's date of birth once recorded), locking it with <code>const</code> means JavaScript will catch you if you — or a future version of you, six months from now, who's forgotten this code — accidentally try to overwrite it.</p>
+  <div class="callout"><b>Important subtlety, explained slowly:</b> <code>const</code> only locks the box itself, not necessarily what's inside it — <i>if</i> what's inside is an object or array. You cannot replace the box's entire contents, but if the contents are a container (like an object), you can still reach inside that container and change its individual pieces. This will feel confusing right now and is explained fully with examples in Section 4 — for now, just remember: <code>const</code> means "you can't reassign this variable," not "this value can never change in any way."</div>
+
+  <h4>let — the "refillable" box</h4>
+  <p>Use <code>let</code> when you know the value stored will need to change later — for example, a score that goes up, or a countdown that goes down.</p>
+  <pre><code>let score = 0;
+score = score + 1; // take the current value of score, add 1, store the result back into score
+console.log(score); // 1</code></pre>
+  <p>Read that middle line very carefully, because it confuses almost every beginner the first time: <code>score = score + 1</code> is NOT a mathematical claim that "score equals score plus one" (which would be nonsense in math). Remember, <code>=</code> means "store the result of the right side into the box on the left." So JavaScript first calculates the right-hand side (looks up score's current value, which is 0, and adds 1, getting 1), and only afterward does it store that new result, 1, back into the <code>score</code> box — overwriting the old value of 0.</p>
+
+  <h4>var — the old way (avoid it, but recognize it)</h4>
+  <p>You'll still encounter <code>var</code> in older code, tutorials, and StackOverflow answers from before 2015. It behaves similarly to <code>let</code> — you can reassign it — but its scoping rules (Section 3) are looser and cause real bugs. The modern convention, which you should follow from day one, is: never write <code>var</code> in new code.</p>
+
+  <div class="callout"><b>The simple decision rule:</b> Start every variable as <code>const</code>. If you later find you genuinely need to reassign it, change it to <code>let</code>. Never reach for <code>var</code>.</div>
+
+  <h3>Naming your variables</h3>
+  <p>JavaScript has strict technical rules and separate stylistic conventions for naming.</p>
+  <p><b>Technical rules (the language enforces these):</b> A name can contain letters, digits, underscores (<code>_</code>), and dollar signs (<code>$</code>). It cannot start with a digit. It cannot be one of JavaScript's reserved words (like <code>let</code>, <code>if</code>, or <code>function</code> themselves). Names are case-sensitive, meaning <code>age</code> and <code>Age</code> are two completely different, unrelated boxes.</p>
+  <p><b>Stylistic convention (the community agrees on this, but JS won't stop you from breaking it):</b> use <b>camelCase</b> — the first word lowercase, every following word capitalized, no spaces or underscores: <code>firstName</code>, <code>totalScore</code>, <code>isLoggedIn</code>. This isn't a JavaScript rule, it's a readability habit shared by virtually all JS developers, so following it makes your code look "normal" to others (and to future you).</p>
+  <p>Also, pick names that describe what the value <i>is</i>, not vague single letters. <code>let d = 5;</code> tells a reader nothing. <code>let daysRemaining = 5;</code> tells them everything.</p>
+
+  <div class="exercise"><b>Try it yourself</b>
+  Open your browser: right-click anywhere on a webpage → "Inspect" → click the "Console" tab. This is a live JavaScript environment. Type each of these lines, pressing Enter after each one, and watch what happens:
+  <pre><code>const myName = "your actual name here";
+console.log(myName);
+let myAge = 20;
+myAge = myAge + 1;
+console.log(myAge);</code></pre>
+  Then try typing <code>myName = "someone else"</code> and press Enter — you should see an error. Read the error message carefully; it's telling you exactly what we discussed above.</div>
+</section>
+
+<section id="scope">
+  <h2><span class="num">3.</span> Scope — who can see which box</h2>
+  <p>Scope is one of the ideas beginners find most confusing at first, but the underlying concept is simple once you have the right picture in your head. <b>Scope answers the question: "from this exact line of code, which variables am I allowed to see and use?"</b></p>
+  <h4>In Plain English</h4>
+  <div class="callout plain"><b>Picture a set of rooms inside rooms</b> — like a house with a living room, and inside the living room, a smaller closet. Anything left in the living room (the outer room) can be seen and used by someone standing in the closet (the inner room). But something left inside the closet cannot be seen or used by someone standing out in the living room, because the closet is a private space nested inside the bigger one. JavaScript's "rooms" are created by curly braces <code>{ }</code> and by functions.</div>
+
+  <h3>Global scope — the outermost room</h3>
+  <p>A variable declared outside of any function or block of curly braces lives in the <b>global scope</b>. This is the "outdoors" — visible from literally anywhere else in your file.</p>
+  <pre><code>const appName = "Noveltiq"; // declared globally — outside everything
+
+function greet() {
+  console.log(appName); // ✅ visible here, because greet() is "inside" the global room
+}
+
+greet(); // prints: Noveltiq</code></pre>
+
+  <h3>Function scope — a private room created by a function</h3>
+  <p>Every time you write a function, you are creating a brand-new private room. Any variable declared inside that function — using <code>let</code>, <code>const</code>, or <code>var</code> — only exists while that function is running, and is completely invisible to code outside it.</p>
+  <pre><code>function calculateTotal() {
+  const tax = 0.075; // this variable only exists inside calculateTotal
+  const total = 100 * (1 + tax);
+  return total;
+}
+
+console.log(calculateTotal()); // 107.5 — fine, we called the function
+console.log(tax); // ❌ ReferenceError: tax is not defined</code></pre>
+  <p>Why does this error happen? Because <code>tax</code> was created inside the "room" belonging to <code>calculateTotal</code>. Once that function finishes running, its room — and everything declared inside it — is gone. Trying to access <code>tax</code> from outside is like trying to grab something from a room that's already been demolished.</p>
+
+  <h3>Block scope — a private room created by any { }</h3>
+  <p>A "block" is any section of code wrapped in curly braces: the body of an <code>if</code> statement, a loop, or even a standalone pair of braces with nothing else around them. <code>let</code> and <code>const</code> both respect block scope, meaning a variable declared inside <code>{ }</code> does not exist outside those braces.</p>
+  <pre><code>if (true) {
+  let secret = "hidden";
+  console.log(secret); // ✅ works — we're still inside the block
+}
+
+console.log(secret); // ❌ ReferenceError: secret is not defined</code></pre>
+  <p>This is exactly the same "room" logic as function scope, just applied to any curly braces, not only function ones.</p>
+
+  <h4>The var trap — why the old keyword causes bugs</h4>
+  <div class="callout trap"><b>This is important:</b> <code>var</code> completely ignores block scope. It only respects function scope. That means a <code>var</code> declared inside an <code>if</code> block "leaks" out of that block and becomes visible outside it — as long as it's still within the same function (or the global scope, if there's no enclosing function).</div>
+  <pre><code>if (true) {
+  var leaky = "I escaped the block!";
+}
+console.log(leaky); // "I escaped the block!" — var does NOT respect the { }</code></pre>
+  <p>Why is this a problem in practice? Imagine a large program with many <code>if</code> blocks and loops, all using <code>var</code>. A variable you thought was safely "contained" inside one block might actually be visible — and accidentally overwritten — somewhere else entirely in the same function, causing bugs that are very hard to trace back to their source. This single issue is the main historical reason the language introduced <code>let</code> and <code>const</code> in the first place.</p>
+
+  <div class="exercise"><b>Try it yourself</b>
+  Write a function with an <code>if</code> block inside it. Inside the <code>if</code> block, declare a variable using <code>let</code> and give it any value. Immediately after the closing brace of the <code>if</code> block — but still inside the function — try to <code>console.log</code> that variable. You should get an error. Then repeat the exact same experiment but declare the variable with <code>var</code> instead, and notice the difference. Write one sentence explaining, in your own words, why the results differ.</div>
+</section>
+
+<section id="types">
+  <h2><span class="num">4.</span> Data types — the kinds of things you can store</h2>
+  <p>Every single value in JavaScript belongs to one of two big families: <b>primitives</b> and <b>reference types</b>. Understanding the difference between these two families now will save you from a huge number of confusing bugs later, so we're going to go slowly and use several examples.</p>
+
+  <h3>Primitive types — simple, single values</h3>
+  <p>A primitive is a basic, indivisible value — it can't be broken down into smaller pieces, and it can't have things added to it after creation. JavaScript has 7 primitive types. You'll use 5 of them constantly; the other 2 are rare and safe to ignore for now.</p>
+  <pre><code>let a = "hello world";  // string — text, always wrapped in quotes (' " or `)
+let b = 42;               // number — JS has only ONE number type; no separate "integer" vs "decimal"
+let c = true;              // boolean — exactly two possible values: true or false
+let d = undefined;         // a variable that exists but has not been given a value yet
+let e = null;               // a value YOU deliberately set to mean "intentionally nothing"
+// (BigInt and Symbol exist too, but you won't need them for a long time — skip them for now)</code></pre>
+  <p>Let's clarify a subtlety that confuses many beginners: <b><code>undefined</code> vs <code>null</code></b>. Both seem to mean "nothing," but the difference is about who caused it. <code>undefined</code> is JavaScript's own automatic default — if you declare a variable and never give it a value, JavaScript fills it with <code>undefined</code> for you. <code>null</code>, on the other hand, is something a programmer writes deliberately, to say "I am intentionally recording that there is no value here" — for example, a "middle name" field for someone who doesn't have one.</p>
+  <pre><code>let middleName; // declared, but no value given
+console.log(middleName); // undefined — JS filled this in automatically
+
+let nickname = null; // WE chose to say "no nickname exists"
+console.log(nickname); // null — we set this on purpose</code></pre>
+
+  <h4>The critical property of primitives: copies are independent</h4>
+  <p>When you copy a primitive value into a new variable, JavaScript creates a totally separate, independent copy. Changing one has zero effect on the other.</p>
+  <pre><code>let x = 5;
+let y = x; // y receives its own independent copy of the value 5
+y = 10; // we change y only
+console.log(x); // 5 — completely unaffected
+console.log(y); // 10</code></pre>
+  <p>This matches how most people already think about numbers intuitively — if you write "5" on two separate pieces of paper, scribbling on one doesn't change the other. Reference types, which we cover next, behave very differently, and that difference is the whole point of this section.</p>
+
+  <h3>Reference types — containers that hold other things</h3>
+  <p>Objects and arrays are called "reference types" because of HOW they're stored in memory, which is fundamentally different from primitives. Instead of the variable directly holding the value, the variable holds a "reference" — think of it as an address or a sticky note pointing to where the actual data lives elsewhere in memory.</p>
+  <pre><code>const person = { name: "Eniola", role: "Founder" }; // an object: a container of labeled properties
+const numbers = [1, 2, 3]; // an array: an ordered container of values, accessed by position (0, 1, 2...)</code></pre>
+  <p>An object groups related pieces of data under descriptive labels (called "properties" or "keys"). You access a property using a dot: <code>person.name</code> gives you <code>"Eniola"</code>. An array holds an ordered sequence of items, accessed by a numeric position called an "index," starting at 0 (not 1!): <code>numbers[0]</code> gives you <code>1</code>, <code>numbers[1]</code> gives you <code>2</code>.</p>
+
+  <h4>The critical property of reference types: copies point to the SAME thing</h4>
+  <p>This is the single most important, and most commonly misunderstood, concept in this entire unit. When you copy a reference type into a new variable, you are NOT creating a new, independent object. You're creating a second sticky note pointing at the exact same underlying object. Changing the object through either variable affects what you see through both.</p>
+  <pre><code>const objA = { count: 1 };
+const objB = objA; // objB is NOT a new object — it's a second reference to the SAME object as objA
+objB.count = 99; // we reach inside and change a property
+console.log(objA.count); // 99 — objA "sees" the change too, because they're the same underlying object!</code></pre>
+  <p>Read that again slowly if it doesn't click immediately — nearly everyone needs to read this two or three times. <code>objA</code> and <code>objB</code> are two different names, but they both point at one single object sitting in memory. There is only one <code>{ count: ... }</code> object in existence here, not two.</p>
+  <p>Now recall the earlier <code>const</code> subtlety from Section 2 — this is exactly what it was hinting at:</p>
+  <pre><code>const objA = { count: 1 };
+objA = { count: 2 }; // ❌ Error — this tries to make objA point at a DIFFERENT object entirely, which const forbids
+objA.count = 2; // ✅ fine — we're not changing what objA points to, just editing the object it already points to</code></pre>
+  <p><code>const</code> only prevents you from making the variable point somewhere else. It places no restriction whatsoever on editing the contents of the thing it's already pointing to.</p>
+
+  <h3>Checking a value's type with typeof</h3>
+  <p>The <code>typeof</code> operator lets you ask JavaScript, "what kind of value is this?" It returns the type as a string.</p>
+  <pre><code>typeof "hello"    // "string"
+typeof 42          // "number"
+typeof true         // "boolean"
+typeof undefined    // "undefined"
+typeof null         // "object"  this is a famous, decades-old bug baked into the language, just memorize it
+typeof {}           // "object"
+typeof []           // "object"  arrays are technically a specialized kind of object under the hood</code></pre>
+
+  <div class="exercise"><b>Try it yourself</b>
+  In your console, create one variable for each primitive discussed (string, number, boolean, undefined, null) and log the <code>typeof</code> each one. Then create an object called <code>me</code> with at least three properties describing yourself (e.g., name, city, role). Then write <code>const meCopy = me;</code>, change one property through <code>meCopy</code>, and confirm — by logging <code>me</code> — that the original also changed. This exercise is the single most important one in this unit; don't skip it.</div>
+</section>
+
+<section id="operators">
+  <h2><span class="num">5.</span> Operators and coercion — combining values</h2>
+  <h3>Arithmetic operators</h3>
+  <p>These work mostly as you'd expect from school math, with one addition (the remainder operator) that's new to most beginners.</p>
+  <pre><code>5 + 3   // 8    addition
+5 - 3   // 2    subtraction
+5 * 3   // 15   multiplication
+5 / 3   // 1.6666666666666667   division
+5 % 3   // 2    remainder ("modulo") — what's left over after dividing 5 by 3 as many whole times as possible (once, with 2 left over)
+5 ** 2  // 25   exponent — 5 raised to the power of 2</code></pre>
+  <p>The remainder operator (<code>%</code>) feels unfamiliar at first but is extremely useful — it's the standard way to check things like "is this number even or odd?" (a number is even if <code>number % 2</code> equals 0) or "has this counter wrapped back around?" You'll use it constantly.</p>
+
+  <h3>Comparison operators</h3>
+  <pre><code>5 > 3     // true
+5 < 3     // false
+5 >= 5    // true (greater than OR equal to)
+5 == "5"   // true  — "loose equality": converts types before comparing
+5 === "5"  // false — "strict equality": checks BOTH the value AND the type</code></pre>
+  <div class="callout"><b>Always prefer <code>===</code> and <code>!==</code> over <code>==</code> and <code>!=</code>.</b> The loose versions silently convert one side's type to try to make the comparison "work," which produces results that surprise almost everyone at first — for example, <code>0 == false</code> evaluates to <code>true</code>, and <code>"" == false</code> also evaluates to <code>true</code>. The strict versions never do this silent conversion, so what you see is exactly what's being compared — no hidden surprises.</div>
+
+  <h3>Logical operators</h3>
+  <pre><code>true && false   // false — AND: the whole expression is only true if BOTH sides are true
+true || false   // true  — OR: the whole expression is true if AT LEAST ONE side is true
+!true            // false — NOT: flips a boolean to its opposite</code></pre>
+  <p>A useful way to remember these: <code>&&</code> is strict ("everyone has to agree"), <code>||</code> is lenient ("just one yes is enough"), and <code>!</code> is a mirror that reverses whatever it's given.</p>
+
+  <h3>Type coercion — JavaScript quietly converting types for you</h3>
+  <p>Coercion is what happens when JavaScript automatically converts a value from one type to another so that an operation can be completed. Sometimes this is convenient; sometimes it produces results that look bizarre until you understand the rule behind them.</p>
+  <pre><code>"5" + 3      // "53"   the number 3 is converted into the string "3", then joined onto "5"
+"5" - 3      // 2       here, the string "5" is converted into the number 5, because subtraction only makes sense between numbers
+"5" * "2"    // 10      both strings are converted to numbers
+true + 1     // 2       true is converted to the number 1
+false + 1    // 1       false is converted to the number 0</code></pre>
+  <p>Here's the underlying rule, stated plainly: the <code>+</code> operator prefers to combine values as text (this is called "concatenation") whenever at least one side is already a string. Every other arithmetic operator (<code>- * / %</code>) has no text-combining meaning at all, so JavaScript always forces both sides into numbers first.</p>
+
+  <h3>Truthy and falsy values</h3>
+  <p>Whenever JavaScript needs a value to behave as a boolean — most commonly inside an <code>if</code> statement's condition — it doesn't require an actual <code>true</code>/<code>false</code>. Instead, it converts whatever value is given into either "truthy" (behaves like true) or "falsy" (behaves like false). There are exactly <b>six falsy values</b> in the entire language. Memorize this short list, because absolutely everything else — no exceptions — is truthy:</p>
+  <pre><code>false, 0, "", null, undefined, NaN
+// literally everything else is truthy — including things that feel "empty," like [] and {}</code></pre>
+  <div class="callout trap"><b>The trap that catches almost everyone at least once:</b> an empty array <code>[]</code> and an empty object <code>{}</code> are BOTH truthy, even though intuitively they feel like they should mean "nothing." Only the six exact values listed above are falsy — everything else, no matter how "empty" it looks, is truthy.</div>
+  <pre><code>if ([]) {
+  console.log("this actually runs!"); // yes, it does — [] is truthy
+}</code></pre>
+
+  <div class="exercise"><b>Try it yourself</b>
+  Predict the result of each of these lines before typing them into your console, write down your guess, then check: <code>"3" + 3</code>, <code>"3" - 3</code>, <code>3 === "3"</code>, <code>Boolean("")</code>, <code>Boolean("0")</code>, <code>Boolean([])</code>. The last three are the ones that trip people up the most — make sure you can explain out loud why each one is true or false.</div>
+</section>
+
+<section id="control">
+  <h2><span class="num">6.</span> Control flow — decisions and repetition</h2>
+  <h3>if / else if / else — making decisions</h3>
+  <p>An <code>if</code> statement runs a block of code only when its condition is truthy. You can chain multiple checks together with <code>else if</code>, and provide a fallback with a final <code>else</code>.</p>
+  <pre><code>const age = 20;
+
+if (age >= 18) {
+  console.log("You can vote.");
+} else if (age >= 13) {
+  console.log("You're a teenager.");
+} else {
+  console.log("You're a child.");
+}
+// prints: You can vote.</code></pre>
+  <p>JavaScript checks these conditions in order, from top to bottom. The moment it finds one that's truthy, it runs that block and skips every remaining <code>else if</code>/<code>else</code> below it — it never checks further once it's found a match. In our example, <code>age >= 18</code> is truthy (20 is indeed at least 18), so JavaScript runs that first block and never even evaluates the other two conditions.</p>
+
+  <h3>switch — comparing one value against several exact options</h3>
+  <p>When you're comparing one single variable against many possible exact values, a <code>switch</code> statement is often easier to read than a long chain of <code>else if</code>s.</p>
+  <pre><code>const day = "Monday";
+
+switch (day) {
+  case "Saturday":
+  case "Sunday":
+    console.log("Weekend!");
+    break;
+  case "Monday":
+    console.log("Start of the work week.");
+    break;
+  default:
+    console.log("Midweek.");
+}
+// prints: Start of the work week.</code></pre>
+  <p>Each <code>case</code> is compared to <code>day</code> using strict equality. When a case's value matches, its code runs. Notice "Saturday" and "Sunday" share the same block by being stacked with no code in between — this is intentional and means "if it's either of these, do the same thing." The <code>default</code> case is a fallback, similar to a final <code>else</code>, running only if none of the cases matched.</p>
+  <div class="callout trap"><b>Never forget the <code>break</code> keyword.</b> Without it, JavaScript doesn't stop after a matching case — it keeps running every case below it too, a behavior called "fall-through." This is almost never what you want, and forgetting <code>break</code> is one of the most common switch-statement bugs.</div>
+
+  <h3>Loops — repeating an action</h3>
+  <p><b>The <code>for</code> loop</b> is used when you know roughly how many times you want to repeat something, or you want a running counter.</p>
+  <pre><code>for (let i = 0; i < 5; i++) {
+  console.log(i);
+}
+// prints: 0, 1, 2, 3, 4 (each on its own line)</code></pre>
+  <p>A <code>for</code> loop has three parts separated by semicolons, and it's worth understanding exactly what each one does and when it runs:</p>
+  <ul>
+    <li><code>let i = 0</code> — runs ONCE, right at the very start, to set up a counter variable.</li>
+    <li><code>i < 5</code> — checked BEFORE every single pass through the loop. If it's truthy, the loop body runs; if it's falsy, the loop stops immediately.</li>
+    <li><code>i++</code> — runs AFTER every pass through the loop body finishes, and simply means "increase i by 1" (it's shorthand for <code>i = i + 1</code>).</li>
+  </ul>
+  <p>So the actual order of events is: set i to 0, check i &lt; 5 (true), run body printing 0, increase i to 1, check i &lt; 5 (true), run body printing 1, and so on, until i becomes 5, at which point <code>i < 5</code> is false and the loop stops.</p>
+
+  <p><b>The <code>while</code> loop</b> is used when you don't know exactly how many repetitions you'll need in advance — you just want to keep going as long as some condition holds.</p>
+  <pre><code>let attempts = 0;
+while (attempts < 3) {
+  console.log("Attempt number " + attempts);
+  attempts++;
+}
+// prints: Attempt number 0, Attempt number 1, Attempt number 2</code></pre>
+  <div class="callout trap"><b>The infinite loop trap:</b> if you forget to change the condition variable inside the loop body (forget the <code>attempts++</code> above, for instance), the condition never becomes false, and your program will run forever, freezing your browser tab. Always double-check that whatever your loop's condition depends on is actually being updated somewhere inside the loop.</div>
+
+  <p><b>The <code>for...of</code> loop</b> is the simplest, most modern way to walk through every value in an array, one at a time, without needing to manage an index counter yourself.</p>
+  <pre><code>const fruits = ["apple", "banana", "mango"];
+for (const fruit of fruits) {
+  console.log(fruit);
+}
+// prints: apple, banana, mango</code></pre>
+  <p>Here, <code>fruit</code> is a new variable name we chose (it could be anything), and on each pass through the loop, JavaScript automatically assigns it the next value from the <code>fruits</code> array — first "apple," then "banana," then "mango" — until it's gone through every item.</p>
+
+  <p><b>The <code>for...in</code> loop</b> is used far less often, and walks through the property NAMES (not values) of an object.</p>
+  <pre><code>const person = { name: "Eniola", role: "Founder" };
+for (const key in person) {
+  console.log(key, person[key]);
+}
+// prints: name Eniola
+//         role Founder</code></pre>
+  <p>Here, <code>key</code> takes on each property name in turn ("name," then "role"), and <code>person[key]</code> looks up the corresponding value using that name.</p>
+
+  <div class="exercise"><b>Try it yourself</b>
+  Write a <code>for</code> loop that counts from 1 to 20. Inside the loop, use an <code>if</code>/<code>else</code> and the remainder operator (<code>%</code>) from Section 5 to print "even" if the number is evenly divisible by 2, and "odd" otherwise. This single exercise touches every concept in this entire unit — variables, comparison operators, the modulo operator, if/else, and loops — so take your time and get it fully working before moving on.</div>
+</section>
+
+<section id="next">
+  <h2><span class="num">7.</span> Recap and what's next</h2>
+  <p>Let's summarize everything covered, in plain language, one more time:</p>
+  <ul>
+    <li>Your code is read and carried out, line by line, by a JavaScript engine.</li>
+    <li>Variables are named boxes for storing values; use <code>const</code> by default, <code>let</code> when reassignment is needed, and avoid <code>var</code> entirely.</li>
+    <li>Scope determines where a variable is visible; <code>{ }</code> and functions create private "rooms," and <code>let</code>/<code>const</code> respect those rooms while <code>var</code> ignores block-level ones.</li>
+    <li>Primitives (string, number, boolean, undefined, null) copy independently; objects and arrays are reference types, where copies point to the same underlying data.</li>
+    <li>Operators combine values, and JavaScript sometimes silently coerces types — memorize the six falsy values so truthy/falsy checks never surprise you.</li>
+    <li>Control flow (<code>if</code>/<code>else</code>, <code>switch</code>, loops) lets your program make decisions and repeat actions.</li>
+  </ul>
+  <p>You now have every concept required for Unit 1's two projects: the <b>CLI calculator</b> (variables, arithmetic and comparison operators, maybe a <code>switch</code> for choosing the operation) and the <b>number-guessing game</b> (variables, comparison operators, a loop, and <code>if</code>/<code>else</code> for feedback). Build both, fully, before moving on to Unit 2 (Functions & Scope) — the projects are where these ideas actually become permanent rather than something you read once and forgot.</p>
+  <div class="check"><b>Before moving on, make sure you can explain out loud, without looking back at this page:</b> the difference between <code>let</code> and <code>const</code>; why <code>var</code> is avoided; the difference between a primitive and a reference type (and why copying an object is different from copying a number); and why <code>===</code> is preferred over <code>==</code>. If any of these feel shaky, re-read that section before starting the projects.</div>
+</section>
+
+<footer>Unit 1 of the JS → React → TypeScript syllabus — the complete beginner's edition.</footer>
+</div>
+</body>
+</html>
